@@ -5,9 +5,9 @@ package com.dineshonjava.sbsecurity.service;
 
 import java.util.Collection;
 
+import jakarta.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 	
-	@Autowired
+	@Inject
 	UserRepository userRepository;
 	
 	@Override

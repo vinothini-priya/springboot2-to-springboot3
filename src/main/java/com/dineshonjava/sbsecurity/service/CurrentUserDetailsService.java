@@ -3,9 +3,9 @@
  */
 package com.dineshonjava.sbsecurity.service;
 
+import jakarta.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,7 +23,7 @@ public class CurrentUserDetailsService implements UserDetailsService {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(CurrentUserDetailsService.class);
 	
-	@Autowired
+	@Inject
 	UserService userService;
 	
 	@Override

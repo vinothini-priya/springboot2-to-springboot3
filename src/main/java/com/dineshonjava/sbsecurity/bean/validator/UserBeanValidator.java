@@ -3,10 +3,10 @@
  */
 package com.dineshonjava.sbsecurity.bean.validator;
 
+import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
@@ -17,12 +17,12 @@ import com.dineshonjava.sbsecurity.service.UserService;
  * @author Dinesh.Rajput
  *
  */
-@Component
+@ApplicationScoped
 public class UserBeanValidator implements Validator{
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserBeanValidator.class);
 	
-	@Autowired
+	@Inject
 	UserService userService;
 
 	@Override

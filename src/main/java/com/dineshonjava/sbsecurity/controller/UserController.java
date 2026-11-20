@@ -5,9 +5,11 @@ package com.dineshonjava.sbsecurity.controller;
 
 import javax.validation.Valid;
 
+import jakarta.inject.Inject;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -15,8 +17,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -33,10 +33,10 @@ public class UserController {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 	
-	@Autowired
+	@Inject
 	UserService userService;
 	
-	@Autowired
+	@Inject
 	UserBeanValidator userBeanValidator;
 	
 	@InitBinder("form")
@@ -44,28 +44,28 @@ public class UserController {
         binder.addValidators(userBeanValidator);
     }
 	
-	@RequestMapping("/users")
+	@Path("/users")
 	public ModelAndView getUsersPage() {
 		LOGGER.debug("Getting users page");
 		return new ModelAndView("users", "users", userService.getAllUsers());
 	}
 	
 	@PreAuthorize("@currentUserServiceImpl.canAccessUser(principal, #id)")
-	@RequestMapping("/user/{id}")
-    public ModelAndView getUserPage(@PathVariable Long id) {
+	@Path("/user/{id}")
+    public ModelAndView getUserPage(@PathParam Long id) {
 		LOGGER.debug("Getting user page for user={}", id);
         return new ModelAndView("user", "user", userService.getUserById(id));
     }
 	
 	@PreAuthorize("hasAuthority('ADMIN')")
-    @RequestMapping(value = "/user/create", method = RequestMethod.GET)
+    @Path(value = "/user/create", method = RequestMethod.GET)
     public ModelAndView getUserCreatePage() {
     	 LOGGER.debug("Getting user create form");
         return new ModelAndView("user_create", "form", new UserBean());
     }
     
 	@PreAuthorize("hasAuthority('ADMIN')")
-    @RequestMapping(value = "/user/create", method = RequestMethod.POST)
+    @Path(value = "/user/create", method = RequestMethod.POST)
     public String handleUserCreateForm(@Valid @ModelAttribute("form") UserBean form, BindingResult bindingResult) {
     	 LOGGER.debug("Processing user create form={}, bindingResult={}", form, bindingResult);
         if (bindingResult.hasErrors()) {

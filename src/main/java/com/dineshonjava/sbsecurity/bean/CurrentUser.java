@@ -3,6 +3,9 @@
  */
 package com.dineshonjava.sbsecurity.bean;
 
+import java.io.Serial;
+
+
 import org.springframework.security.core.authority.AuthorityUtils;
 
 import com.dineshonjava.sbsecurity.model.User;
@@ -17,6 +20,7 @@ public class CurrentUser extends org.springframework.security.core.userdetails.U
 	/**
 	 * 
 	 */
+	@Serial
 	private static final long serialVersionUID = 1L;
 	
 	private User user;
